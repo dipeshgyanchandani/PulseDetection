@@ -1,6 +1,5 @@
 
 import time
-# Import the ADS1x15 module.
 import Adafruit_ADS1x15
 
 
@@ -25,18 +24,17 @@ if __name__ == '__main__':
 
     lastTime = int(time.time()*1000)
 
-    # Main loop. use Ctrl-c to stop the code
+    
     while True:
-        # read from the ADC
         Signal = adc.read_adc(0, gain=GAIN)  
         curTime = int(time.time()*1000)
 
         sampleCounter += curTime - lastTime;      
         lastTime = curTime
         N = sampleCounter - lastBeatTime;     
-        #print N, Signal, curTime, sampleCounter, lastBeatTime
+        
 
-        ##  find the peak and trough of the pulse wave
+        
         if Signal < thresh and N > (IBI/5.0)*3.0 :  
             if Signal < T :                       
               T = Signal;                         
@@ -44,8 +42,7 @@ if __name__ == '__main__':
             P = Signal;                           
                                                 
 
-          #  NOW IT'S TIME TO LOOK FOR THE HEART BEAT
-          # signal surges up in value every time there is a pulse
+          
         if N > 250 :                                   
             if  (Signal > thresh) and  (Pulse == False) and  (N > (IBI/5.0)*3.0)  :       
               Pulse = True;                               
